@@ -1,0 +1,73 @@
+group 'com.adeptik'
+version '1.0.0-SNAPSHOT'
+
+buildscript {
+
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
+    }
+}
+
+apply plugin: 'application'
+apply plugin: 'de.fuerstenau.buildconfig'
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/project-extensions.gradle'
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/java-extensions.gradle'
+
+repositories {
+
+    jcenter()
+
+    if (projectExtensions.isSnapshot())
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+}
+
+mainClassName = 'com.adeptik.algorithm.execution.AlgorithmExecutor'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Версия JDK, используемая для сборки и исполнения
+def javaUsed = JavaVersion.current()
+
+dependencies {
+
+    compile 'com.google.guava:guava:20.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.adeptik:CommandLineUtils:1.0.2-SNAPSHOT'
+    compile project(':AlgorithmRuntime')
+    compile project(':AlgorithmExecutorContracts')
+}
+
+javaExtensions.emitEntryPoint()
+
+// переключение инструментария (toolchain) JDK извне
+if (project.hasProperty('useJDK')) {
+
+    // поддерживаемые версии Java для сборки
+    def supportedJavaVersions = [
+            JavaVersion.VERSION_1_6,
+            JavaVersion.VERSION_1_7,
+            JavaVersion.VERSION_1_8
+    ]
+
+    def version = JavaVersion.toVersion("$useJDK")
+    assert supportedJavaVersions.contains(version): "Unsupported java version $version"
+
+    javaUsed = version
+
+    javaExtensions.changeUsedJDK(version)
+}
+
+buildConfig {
+    buildConfigField 'int', 'JDK_VERSION', {
+        "${javaUsed.ordinal() + 1}"
+    }
+}

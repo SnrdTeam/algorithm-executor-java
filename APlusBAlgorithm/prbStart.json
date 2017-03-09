@@ -1,0 +1,8 @@
+{
+  "algorithmDir": "..\\build\\algorithm",
+  "problemDir": "definition",
+  "solutionStore": {
+    "_type": "FileSolutionStore",
+    "solutionsDir": "solutions"
+  }
+}

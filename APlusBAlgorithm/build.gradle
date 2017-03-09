@@ -1,0 +1,45 @@
+group 'com.adeptik'
+version '1.0.0-SNAPSHOT'
+
+buildscript {
+
+    repositories {
+
+        mavenCentral()
+
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+
+    dependencies {
+        classpath 'com.adeptik:AlgorithmPlugin:1.0.0-SNAPSHOT'
+    }
+}
+
+apply plugin: "AlgorithmJar"
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/project-extensions.gradle'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+
+    if (projectExtensions.isSnapshot())
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+}
+
+dependencies {
+    compile 'com.adeptik:AlgorithmRuntime:1.0.0-SNAPSHOT'
+}
+
+compileAlgorithm {
+    entryPoint 'com.adeptik.APlusBAlgorithm.run'
+}
+
+task cleanSolutions(type: Delete) {
+
+    delete fileTree("problem/solutions/")
+}

@@ -1,0 +1,57 @@
+group 'com.adeptik'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/ossrh-publish.gradle'
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/java-extensions.gradle'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+javaExtensions.setDefaultEncoding("UTF-8")
+
+repositories {
+
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+uploadArchives {
+
+    repositories {
+
+        mavenDeployer {
+
+            pom.project {
+                name 'Algorithm Runtime for Java'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Library containing algorithm execution context interface.'
+                url 'https://github.com/SnrdTeam/algorithm-executor-java/tree/master/AlgorithmRuntime'
+
+                scm {
+                    connection 'scm:git:git://github.com/SnrdTeam/algorithm-executor-java.git'
+                    developerConnection 'scm:git:ssh://github.com:SnrdTeam/algorithm-executor-java.git'
+                    url 'https://github.com/SnrdTeam/algorithm-executor-java.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'adeptik'
+                        name 'Adeptik'
+                        email 'infocorp@adeptik.com'
+                    }
+                }
+            }
+        }
+    }
+}
