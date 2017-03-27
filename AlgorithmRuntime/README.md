@@ -1,11 +1,12 @@
 # Algorithm Runtime for Java
-Library containing algorithm execution context interface.
 
-## Installation
+Библиотека Java, содержащая типы для описания контекста исполнения *Алгоритма*.
 
-In build.gradle file add
+## Использование
 
-```gradle
+В файле build.gradle добавьте
+
+```groovy
 repositories {
     mavenCentral()
 }
@@ -15,7 +16,7 @@ dependencies {
 }
 ```
 
-## License
+## Лицензия
 
 Copyright 2017 Adeptik
 

@@ -1,11 +1,12 @@
 # Algorithm Executor Contracts for Java
-Library containing models for Java Algorithm Executor API.
 
-## Installation
+Библиотека Java, содержащая контракты *Исполнителя* для Java в соответствии со спецификацией *Исполнителя*.
 
-In build.gradle file add
+## Использование
 
-```gradle
+В файле build.gradle добавьте
+
+```groovy
 repositories {
     mavenCentral()
 }
@@ -15,7 +16,7 @@ dependencies {
 }
 ```
 
-## License
+## Лицензия
 
 Copyright 2017 Adeptik
 

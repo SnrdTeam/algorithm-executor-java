@@ -1,7 +1,39 @@
-# Algorithm Gradle Plugin
-Gradle Plugin for assembling algorithm definition for jre-jar runtime.
+# Algorithm Plugin for Gradle
 
-## License
+Плагин Gradle, позволяющий собирать *Определения алгоритма* для Java.
+
+## Использование
+
+В файле build.gradle добавьте
+
+```groovy
+buildscript {
+
+    repositories {
+
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.adeptik:AlgorithmPlugin:1.0.0'
+    }
+}
+
+apply plugin: "AlgorithmJar"
+
+compileAlgorithm {
+    // указываем точку входа   
+    entryPoint 'com.adeptik.APlusBAlgorithm.run'
+}
+```
+
+Для сборки *Определения алгоритма* выполните
+
+    gradle alg
+    
+В папку проекта build/distributions помещается файл *Определения алгоритма* *.alg. Неупакованное содержимое данного файла можно найти в build/algorithm.
+
+## Лицензия
 
 Copyright 2017 Adeptik
 
