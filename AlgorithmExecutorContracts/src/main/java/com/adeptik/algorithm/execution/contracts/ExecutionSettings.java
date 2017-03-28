@@ -3,9 +3,9 @@ package com.adeptik.algorithm.execution.contracts;
 import java.io.File;
 
 /**
- * Параметры запуск исполнения алгоритма для решения конкретной задачи
+ * Параметры запуска исполнения алгоритма для решения конкретной задачи
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "CanBeFinal"})
 public class ExecutionSettings {
 
     /**

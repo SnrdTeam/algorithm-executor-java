@@ -21,11 +21,13 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Objects;
 
-@SuppressWarnings("Guava")
+/**
+ * Класс, содержащий точку входа в приложение
+ */
+@SuppressWarnings({"Guava", "WeakerAccess"})
 public class AlgorithmExecutor {
 
     private static final int JAVA_MIN_VERSION = 6;
@@ -40,6 +42,11 @@ public class AlgorithmExecutor {
         SUPPORTED_RUNTIMES = FluentIterable.from(runtimes);
     }
 
+    /**
+     * Точка входа в приложения
+     *
+     * @param args Аргументы командной строки
+     */
     public static void main(String[] args) {
 
         if (args.length == 1 && Objects.equals(args[0], "--help")) {
@@ -71,6 +78,27 @@ public class AlgorithmExecutor {
         }
     }
 
+    /**
+     * Выввод справки
+     */
+    private static void printHelp() {
+        System.out.println();
+        System.out.println("Usage: --about");
+        System.out.println("Usage: --check <algorithm folder>");
+        System.out.println("Usage: --start <execution settings file>");
+        System.out.println();
+        System.out.println("Options:");
+        System.out.println("  --help    prints this help");
+        System.out.println("  --about   prints information about this executor in json");
+        System.out.println("  --check   checks algorithm execution possibility in <algorithm folder>");
+        System.out.println("  --start   starts algorithm execution with settings stored in <execution settings file>");
+    }
+
+    /**
+     * Проверка корректности и совместимости Определения алгоритма
+     *
+     * @param algorithmDir Папка, в которой находится распакованное Определение алгоритма
+     */
     private static void check(File algorithmDir) {
 
         AlgorithmCheckResult result = new AlgorithmCheckResult();
@@ -86,19 +114,9 @@ public class AlgorithmExecutor {
         gson.toJson(result, System.out);
     }
 
-    private static void printHelp() {
-        System.out.println();
-        System.out.println("Usage: --about");
-        System.out.println("Usage: --check <algorithm folder>");
-        System.out.println("Usage: --start <execution settings file>");
-        System.out.println();
-        System.out.println("Options:");
-        System.out.println("  --help    prints this help");
-        System.out.println("  --about   prints information about this executor in json");
-        System.out.println("  --check   checks algorithm execution possibility in <algorithm folder>");
-        System.out.println("  --start   starts algorithm execution with settings stored in <execution settings file>");
-    }
-
+    /**
+     * Вывод информации об Исполнителе
+     */
     private static void about() {
 
         Gson gson = new GsonBuilder()
@@ -132,6 +150,12 @@ public class AlgorithmExecutor {
         execute(executionSettings);
     }
 
+    /**
+     * Запуск решения задачи
+     *
+     * @param executionSettings Параметры запуска исполнения алгоритма для решения конкретной задачи
+     * @throws Exception Ошибка инициализации Определения алгоритма
+     */
     @SuppressWarnings({"Convert2Lambda", "Guava"})
     private static void execute(ExecutionSettings executionSettings)
             throws Exception {
@@ -149,6 +173,13 @@ public class AlgorithmExecutor {
                 .invoke(null, new ExecutionContext(executionSettings));
     }
 
+    /**
+     * Подготовка к запуску Определения алгоритма
+     *
+     * @param algorithmDir Папка, содержашая распакованное Определение алгоритма
+     * @return Метод, являющийся точкой входа в Алгоритм
+     * @throws Exception Ошибка инициализации Определения алгоритма
+     */
     private static Method prepareAlgorithm(File algorithmDir)
             throws Exception {
 
@@ -176,7 +207,7 @@ public class AlgorithmExecutor {
             throw new Exception("there is no any jar file");
 
         File entryPointFile = new File(runtimeDir, "entrypoint");
-        EntryPoint entryPoint = new EntryPoint(entryPointFile, Charsets.UTF_8);
+        EntryPoint entryPoint = new EntryPoint(entryPointFile);
 
         ClassLoader classLoader = URLClassLoader.newInstance(FluentIterable
                 .from(jars)
@@ -201,19 +232,35 @@ public class AlgorithmExecutor {
         }
     }
 
+
+    /**
+     * Дескриптор точки входа Алгоритма
+     */
     private static class EntryPoint {
 
+        /**
+         * Полное имя класса, содержащего метод, являющийся точкой входа Алгоритма
+         */
         final String ClassName;
 
+        /**
+         * Имя метода, являющегося точкой входа Алгоритма
+         */
         final String MethodName;
 
-        private EntryPoint(File entryPointFile, Charset charset) throws IOException {
+        /**
+         * Создание экземпляра класса {@link EntryPoint}
+         *
+         * @param entryPointFile Файл, содержащий информацию о точке входа Алгоритма
+         * @throws IOException Ошибка ввода-вывода
+         */
+        private EntryPoint(File entryPointFile) throws IOException {
 
             if (!entryPointFile.exists() || !entryPointFile.isFile())
                 throw new IOException("entrypoint file not found");
 
             String methodFullName = Iterables.getFirst(
-                    Files.readLines(entryPointFile, charset), null);
+                    Files.readLines(entryPointFile, Charsets.UTF_8), null);
             assert methodFullName != null;
             int lastDotIndex = methodFullName.lastIndexOf('.');
             if (lastDotIndex < 0)
@@ -225,8 +272,14 @@ public class AlgorithmExecutor {
         }
     }
 
+    /**
+     * Класс для десериализации типа {@link File} из JSON
+     */
     private static class FileTypeDeserializer implements JsonDeserializer<File> {
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public File deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
@@ -236,8 +289,14 @@ public class AlgorithmExecutor {
         }
     }
 
+    /**
+     * Класс для десериализации типа {@link SolutionStoreSettings} из JSON
+     */
     private static class SolutionStoreSettingsTypeDeserializer implements JsonDeserializer<SolutionStoreSettings> {
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public SolutionStoreSettings deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {

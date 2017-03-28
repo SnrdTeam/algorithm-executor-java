@@ -1,13 +1,13 @@
 package com.adeptik.algorithm.execution.contracts;
 
 /**
- * Результат проверки алгоритма
+ * Результат проверки Определения алгоритма на совместимость и корректность
  */
 @SuppressWarnings("unused")
 public class AlgorithmCheckResult {
 
     /**
-     * Алгоритм корректен и его возможно выполнить данным исполнителем
+     * Определения алгоритма корректно и его возможно выполнить данным Исполнителем
      */
     public boolean validAlgorithm;
 }

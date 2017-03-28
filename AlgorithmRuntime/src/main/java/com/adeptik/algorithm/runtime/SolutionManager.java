@@ -19,5 +19,6 @@ public interface SolutionManager {
      * @throws IOException    Сетевая ошибка
      * @throws RetryException Ошибка, исправление которой возможно, если повторно вызвать данный метод позднее
      */
-    void post(SolutionStatus solutionStatus, OutputStreamHandler outputStreamHandler) throws IOException, RetryException;
+    void post(SolutionStatus solutionStatus, OutputStreamHandler outputStreamHandler)
+            throws IOException, RetryException;
 }

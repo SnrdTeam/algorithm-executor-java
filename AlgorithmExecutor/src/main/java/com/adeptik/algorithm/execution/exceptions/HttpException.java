@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * Ошибка при выполнениии http-запроса
  */
+@SuppressWarnings("unused")
 public class HttpException extends IOException {
 
     private final int _code;
@@ -14,6 +15,14 @@ public class HttpException extends IOException {
     private final Map<String, List<String>> _headers;
     private final String _body;
 
+    /**
+     * Создание экземпляра класса {@link HttpException}
+     *
+     * @param code    Код ответа
+     * @param reason  reason phrase
+     * @param headers Заголовки ответа
+     * @param body    Тело ответа
+     */
     public HttpException(int code, String reason, Map<String, List<String>> headers, String body) {
 
         _code = code;

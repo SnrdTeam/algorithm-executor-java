@@ -10,6 +10,9 @@ public final class HttpServiceSolutionStore extends SolutionStoreSettings {
 
     public static final String TYPE = "HttpServiceSolutionStore";
 
+    /**
+     * Создание экземпляра класса {@link HttpServiceSolutionStore}
+     */
     public HttpServiceSolutionStore() {
         super(TYPE);
     }

@@ -11,6 +11,9 @@ import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.bundling.Zip;
 
+/**
+ * Плагин Gradle для сборки Опредления алгоритма
+ */
 @SuppressWarnings("WeakerAccess")
 public class AlgorithmJarPlugin implements Plugin<Project> {
 
@@ -21,6 +24,9 @@ public class AlgorithmJarPlugin implements Plugin<Project> {
     public static final String RUNTIME_FORMAT = "jre%d-jar";
     public static final String ALG_EXTENSION = "alg";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void apply(Project project) {
 
@@ -31,6 +37,11 @@ public class AlgorithmJarPlugin implements Plugin<Project> {
         configureAlg(project);
     }
 
+    /**
+     * Инициализация задачи "alg"
+     *
+     * @param project Проект
+     */
     private void configureAlg(Project project) {
 
         Zip alg = project.getTasks().create(ALG_TASK_NAME, Zip.class);
@@ -42,6 +53,11 @@ public class AlgorithmJarPlugin implements Plugin<Project> {
         alg.setMetadataCharset("UTF-8");
     }
 
+    /**
+     * Инициализация задачи "compileAlgorithm"
+     *
+     * @param javaConvention Расширение плагина Java
+     */
     private void configureCompileAlgorithm(JavaPluginConvention javaConvention) {
 
         ProjectInternal project = javaConvention.getProject();

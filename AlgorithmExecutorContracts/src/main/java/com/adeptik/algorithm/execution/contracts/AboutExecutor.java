@@ -3,7 +3,7 @@ package com.adeptik.algorithm.execution.contracts;
 import java.util.Collection;
 
 /**
- * Информация об исполнителе
+ * Информация об Исполнителе
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class AboutExecutor {
@@ -19,11 +19,18 @@ public class AboutExecutor {
     public final String version;
 
     /**
-     * Список поддерживаемых сред исполнения.
+     * Список поддерживаемых Сред исполнения.
      * Именно так должны называться папки в подпаке runtimes определения алгоритма
      */
     public final Collection<String> supportedRuntimes;
 
+    /**
+     * Создание экземпляра класса {@link AboutExecutor}
+     *
+     * @param name              Имя Исполнителя
+     * @param version           Версия Исполнителя
+     * @param supportedRuntimes Список поддерживаемых Сред исполнения
+     */
     public AboutExecutor(String name, String version, Collection<String> supportedRuntimes) {
 
         if (name == null)

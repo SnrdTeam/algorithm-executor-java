@@ -16,5 +16,6 @@ public interface InputManager {
      * @return Поток для чтения содержимого ресурса входных данных
      * @throws IOException Ошиибка при открытии ресурса с указанным именем
      */
-    InputStream openInput(String name) throws IOException;
+    InputStream openInput(String name)
+            throws IOException;
 }

@@ -11,11 +11,19 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
+/**
+ * Класс, содержащий точку входа Алгоритма "a + b"
+ */
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class APlusBAlgorithm {
 
     private static final long RETRY_DELAY_MILLIS = 1000;
 
+    /**
+     * Точка входа Алгоритма "a + b"
+     *
+     * @param context Контекст запуска алгоритма для решения определенной задачи
+     */
     public static void run(Context context) {
 
         System.out.println("Running algorithm \"a + b\"");

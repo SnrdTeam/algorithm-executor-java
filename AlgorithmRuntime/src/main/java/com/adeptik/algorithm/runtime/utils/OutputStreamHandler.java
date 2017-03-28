@@ -14,5 +14,6 @@ public interface OutputStreamHandler {
      * @param outputStream Поток, в который сохраняются данные
      * @throws IOException Ошибка записи в поток
      */
+    @SuppressWarnings("RedundantThrows")
     void handle(OutputStream outputStream) throws IOException;
 }

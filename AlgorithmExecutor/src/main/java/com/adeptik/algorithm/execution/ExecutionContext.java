@@ -14,19 +14,27 @@ import okhttp3.*;
 import okio.BufferedSink;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * Реализация контекста запуска Алгоритма для решения определенной Задачи
+ */
 class ExecutionContext implements Context {
 
     private final InputManager _inputManager;
     private final SolutionManager _solutionManager;
 
+    /**
+     * Создание экземпляра класса {@link ExecutionContext}
+     *
+     * @param executionSettings Параметры запуск исполнения алгоритма для решения конкретной задачи
+     * @throws FileNotFoundException Файл или папка не найдены
+     */
     ExecutionContext(ExecutionSettings executionSettings)
-            throws URISyntaxException, FileNotFoundException {
+            throws FileNotFoundException {
 
         _inputManager = new InputManagerImpl(executionSettings.problemDir);
 
@@ -43,16 +51,26 @@ class ExecutionContext implements Context {
             _solutionManager = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public InputManager input() {
         return _inputManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SolutionManager solution() {
         return _solutionManager;
     }
 
+
+    /**
+     * Реализация класса для манипулирования входными данными задачи
+     */
     private static class InputManagerImpl implements InputManager {
 
         private final File _problemDir;
@@ -83,17 +101,29 @@ class ExecutionContext implements Context {
         }
     }
 
+    /**
+     * Реализация хранения решения задачи в виде HTTP-сервиса
+     */
     private static class SolutionManagerHttpImpl implements SolutionManager {
 
         private final URL _solutionStoreUrl;
         private final String _authorization;
 
+        /**
+         * Создание экземпляра класса {@link SolutionManagerHttpImpl}
+         *
+         * @param solutionStoreUrl Адрес сервиса хранения решения задачи
+         * @param authorization    Значение заголовка HTTP-запроса Authorization
+         */
         SolutionManagerHttpImpl(URL solutionStoreUrl, String authorization) {
 
             _solutionStoreUrl = solutionStoreUrl;
             _authorization = authorization;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void post(SolutionStatus solutionStatus, final OutputStreamHandler outputStreamHandler)
                 throws IOException, RetryException {
@@ -167,10 +197,19 @@ class ExecutionContext implements Context {
         }
     }
 
+    /**
+     * Реализация файлового хранения решения задачи
+     */
     private static class SolutionManagerFileImpl implements SolutionManager {
 
         private final File _solutionsDir;
 
+        /**
+         * Создание экземпляра класса {@link SolutionManagerFileImpl}
+         *
+         * @param solutionsDir Папка для сохранения решений задач
+         * @throws FileNotFoundException Папка для сохранения решений задач не найдена
+         */
         SolutionManagerFileImpl(File solutionsDir)
                 throws FileNotFoundException {
 
@@ -179,6 +218,9 @@ class ExecutionContext implements Context {
             _solutionsDir = solutionsDir;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void post(SolutionStatus solutionStatus, OutputStreamHandler outputStreamHandler)
                 throws IOException {

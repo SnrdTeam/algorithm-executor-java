@@ -8,6 +8,11 @@ public abstract class SolutionStoreSettings {
 
     private final String _type;
 
+    /**
+     * Создание экземпляра класса {@link SolutionStoreSettings}
+     *
+     * @param type Имя типа хранилища решений задачи
+     */
     SolutionStoreSettings(String type) {
 
         _type = type;

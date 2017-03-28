@@ -10,6 +10,9 @@ public final class FileSolutionStore extends SolutionStoreSettings {
 
     public static final String TYPE = "FileSolutionStore";
 
+    /**
+     * Создание экземпляра класса {@link FileSolutionStore}
+     */
     public FileSolutionStore() {
         super(TYPE);
     }
