@@ -1,5 +1,5 @@
 group 'com.adeptik'
-version '1.0.0-SNAPSHOT'
+version '1.0.0'
 
 buildscript {
 
@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.adeptik:AlgorithmPlugin:1.0.0-SNAPSHOT'
+        classpath 'com.adeptik:AlgorithmPlugin:1.0.0'
     }
 }
 
@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.adeptik:AlgorithmRuntime:1.0.0-SNAPSHOT'
+    compile 'com.adeptik:AlgorithmRuntime:1.0.0'
 }
 
 compileAlgorithm {
