@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.adeptik:AlgorithmPlugin:1.0.0'
+        classpath 'com.adeptik:AlgorithmPlugin:1.0.0-SNAPSHOT'
     }
 }
 
