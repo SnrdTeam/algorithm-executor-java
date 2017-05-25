@@ -25,6 +25,8 @@ targetCompatibility = 1.7
 
 repositories {
 
+    mavenCentral()
+
     if (projectExtensions.isSnapshot())
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots/"
