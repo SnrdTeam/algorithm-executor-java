@@ -6,7 +6,7 @@ import org.gradle.api.file.CopySpec;
 import org.gradle.api.internal.file.collections.FileTreeAdapter;
 import org.gradle.api.internal.file.collections.MapFileTree;
 import org.gradle.api.internal.file.copy.CopySpecInternal;
-import org.gradle.api.tasks.Copy;
+import org.gradle.api.tasks.Sync;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  * Задача Gradle для сборки Определения алгоритма
  */
 @SuppressWarnings({"WeakerAccess", "unused", "Convert2Lambda"})
-public class CompileAlgorithmTask extends Copy {
+public class CompileAlgorithmTask extends Sync {
 
     public static final String DESTINATION_DIR_NAME = "algorithm";
 
