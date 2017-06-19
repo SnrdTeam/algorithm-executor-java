@@ -58,17 +58,39 @@ public class AlgorithmExecutor {
         } else if (args.length == 2 && Objects.equals(args[0], "--check")) {
 
             check(new File(args[1]));
-        } else if (args.length == 2 && Objects.equals(args[0], "--start")) {
+        } else if (args.length >= 2 && Objects.equals(args[0], "--start")) {
+
+            boolean debug;
+            String startSettingsFile;
+            if (args.length == 2) {
+                debug = false;
+                startSettingsFile = args[1];
+            } else if (args.length == 3 && Objects.equals(args[1], "--debug")) {
+                debug = true;
+                startSettingsFile = args[2];
+            } else {
+                System.out.println("Invalid start arguments");
+                printHelp();
+                System.exit(12);
+                return;
+            }
 
             try {
 
-                start(new File(args[1]));
+                start(new File(startSettingsFile));
             } catch (Exception e) {
 
                 System.out.print("Error occurred during execution: ");
                 PrintStreamExtensions.print(System.out, e);
                 System.out.println();
-                System.exit(21);
+
+                if (debug) {
+                    System.out.println("Debug information:");
+                    System.out.println("------------------");
+                    System.out.println();
+                    e.printStackTrace(System.out);
+                    System.exit(21);
+                }
             }
         } else {
 
