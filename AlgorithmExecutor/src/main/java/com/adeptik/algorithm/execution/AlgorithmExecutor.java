@@ -89,8 +89,9 @@ public class AlgorithmExecutor {
                     System.out.println("------------------");
                     System.out.println();
                     e.printStackTrace(System.out);
-                    System.exit(21);
                 }
+
+                System.exit(21);
             }
         } else {
 
