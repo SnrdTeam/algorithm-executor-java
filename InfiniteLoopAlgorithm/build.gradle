@@ -1,0 +1,42 @@
+group 'com.adeptik'
+version '1.0.0'
+
+buildscript {
+
+    repositories {
+
+        mavenCentral()
+
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+
+    dependencies {
+        classpath 'com.adeptik:AlgorithmPlugin:1.0.1'
+    }
+}
+
+apply plugin: "AlgorithmJar"
+apply from: 'https://raw.githubusercontent.com/SnrdTeam/gradle-utils/master/project-extensions.gradle'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+
+    mavenCentral()
+
+    if (projectExtensions.isSnapshot())
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+}
+
+dependencies {
+    compile 'com.adeptik:AlgorithmRuntime:1.0.0'
+}
+
+compileAlgorithm {
+    entryPoint 'com.adeptik.InfiniteLoopAlgorithm.run'
+}
